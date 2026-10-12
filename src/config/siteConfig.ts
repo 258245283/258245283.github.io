@@ -42,13 +42,13 @@ const pages = resolvePageToggles({
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "Firefly",
+	title: "Lin的博客",
 
 	// 站点副标题
-	subtitle: "Demo site",
+	subtitle: "记录技术与生活",
 
 	// 站点 URL
-	site_url: "https://firefly.cuteleaf.cn",
+	site_url: "https://258245283.github.io",
 
 	// 站点描述
 	description:
@@ -312,9 +312,10 @@ export const siteConfig: SiteConfig = {
 	// ── MyAnimeList配置 ──────────────────────────────────
 	mal: {
 		// MyAnimeList 用户名（列表需为公开状态，私密列表无法读取）
-		username: "cuteleaf",
+		// 模板作者的用户名与 Client ID 已清空，需要时填自己的
+		username: "",
 		// MyAnimeList Client ID，在 https://myanimelist.net/apiconfig 注册免费应用后获取
-		clientId: "	0ef34371450f9c6c809deaadec6aa8f3",
+		clientId: "",
 		// MAL API 地址
 		apiUrl: "https://api.myanimelist.net/v2",
 		// 动画条目详情页地址，末尾需要带 /

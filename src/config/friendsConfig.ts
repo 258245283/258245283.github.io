@@ -30,7 +30,7 @@ export const friendsConfig: FriendLink[] = [
 		siteurl: "https://blog.cuteleaf.cn",
 		tags: ["Blog"],
 		weight: 10, // 权重，数字越大排序越靠前
-		enabled: true, // 是否启用
+		enabled: false, // 模板作者的友链，已关闭；填上自己的友链后可按需删除
 	},
 	{
 		title: "Firefly Docs",
