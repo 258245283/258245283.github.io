@@ -1,19 +1,14 @@
 ---
 title: Markdown 教程
-published: 1970-01-01
+published: 2026-10-13
 pinned: false
-description: 一个简明的 Markdown 博客示例。
-tags: [Markdown, 文章示例]
-category: 文章示例
-licenseName: "未授权"
-author: emn178
-sourceLink: "https://github.com/emn178/markdown"
-slug: markdown-tutorial
-series: "Firefly 功能示例2"
-seriesOrder: 1
+description: 简明的 Markdown 博客使用教程。
+tags: [Markdown]
+category: 笔记
+author: Chen
 ---
 
-这是一个展示如何编写 Markdown 文件的示例。本文档汇总了核心语法与常见扩展（GFM）。
+本文是Markdown编写过程中的基本语法
 
 - [块级元素](#block-elements)
     - [段落与换行](#paragraphs-and-line-breaks)
@@ -44,25 +39,7 @@ seriesOrder: 1
 
 HTML 标签：`<p>`
 
-使用一个或多个空行分隔段落。（仅包含**空格**或**制表符**的行也视为空行。）
-
-代码：
-
-    This will be
-    inline.
-
-    This is second paragraph.
-
-预览：
-
----
-
-This will be
-inline.
-
-This is second paragraph.
-
----
+使用**一个或多个空行**分隔段落。
 
 #### 换行
 
@@ -70,26 +47,14 @@ HTML 标签：`<br />`
 
 在行末添加**两个或更多空格**来产生换行。
 
-代码：
 
-    This will be not
-    inline.
-
-预览：
-
----
-
-This will be not  
-inline.
-
----
 
 <a id="headers"></a>
 ### 标题
 
 Markdown 支持两种标题样式：Setext 与 atx。
 
-#### Setext
+#### Setext(不用这个)
 
 HTML 标签：`<h1>`，`<h2>`
 
@@ -102,15 +67,7 @@ HTML 标签：`<h1>`，`<h2>`
     This is an H2
     -------------
 
-预览：
 
----
-
-# This is an H1
-
-## This is an H2
-
----
 
 #### atx
 
@@ -273,34 +230,18 @@ HTML 标签：`<ul>`
 代码：
 
     *   Red
-    *   Green
-    *   Blue
+    +   Green
+    -   Blue
 
 预览：
 
 ---
 
-- Red
-- Green
+* Red
++ Green
 - Blue
 
 ---
-
-等价于：
-
-代码：
-
-    +   Red
-    +   Green
-    +   Blue
-
-或者：
-
-代码：
-
-    -   Red
-    -   Green
-    -   Blue
 
 #### 有序列表
 
@@ -425,17 +366,7 @@ HTML 标签：`<pre>`
 
 将代码块中的每行缩进至少**4 个空格**或**1 个制表符**。
 
-代码：
 
-    This is a normal paragraph:
-
-        This is a code block.
-
-预览：
-
----
-
-This is a normal paragraph:
 
     This is a code block.
 
@@ -444,16 +375,6 @@ This is a normal paragraph:
 代码块会一直持续，直到遇到未缩进的行（或文末）。
 
 在代码块内，**与号 (&)** 和尖括号 **(< >)** 会自动转为 HTML 实体。
-
-代码：
-
-        <div class="footer">
-            &copy; 2004 Foo Corporation
-        </div>
-
-预览：
-
----
 
     <div class="footer">
         &copy; 2004 Foo Corporation
@@ -521,32 +442,6 @@ puts markdown.to_html
 HTML 标签：`<hr />`
 一行中放置**三个或以上的短横线 (-)、星号 (\*) 或下划线 (\_)**。符号之间允许有空格。
 
-代码：
-
-    * * *
-    ***
-    *****
-    - - -
-    ---------------------------------------
-    ___
-
-预览：
-
----
-
----
-
----
-
----
-
----
-
----
-
----
-
----
 
 <a id="table"></a>
 ### 表格
@@ -608,9 +503,9 @@ Markdown 支持两种链接样式：行内链接与引用式链接。
 
 #### 行内链接
 
-行内链接格式：`[文本](URL "标题")`
+行内链接格式：`[文本](网址)`
 
-标题可选。
+标题可选(Title)
 
 代码：
 
@@ -644,9 +539,11 @@ See my [About](/about/) page for details.
 
 #### 引用式链接
 
-可以预定义链接引用。定义格式：`[id]: URL "标题"`
+可以预定义链接引用。定义格式：
 
-标题同样可选。引用时使用：`[文本][id]`
+`[文本][id]`
+
+`[id]:网址`
 
 代码：
 
@@ -752,49 +649,12 @@ HTML 标签：`<code>`
 
 用**反引号 (`)** 包裹。
 
-代码：
-
     Use the `printf()` function.
 
-预览：
-
----
-
-Use the `printf()` function.
-
----
 
 若行内代码中需要包含反引号字符，可使用**多重反引号**作为定界符：
 
-代码：
-
     ``There is a literal backtick (`) here.``
-
-预览：
-
----
-
-``There is a literal backtick (`) here.``
-
----
-
-行内代码两侧的定界符允许包含空格（开头一个、结尾一个），方便在代码起始或结尾放置反引号字符：
-
-代码：
-
-    A single backtick in a code span: `` ` ``
-
-    A backtick-delimited string in a code span: `` `foo` ``
-
-预览：
-
----
-
-A single backtick in a code span: `` ` ``
-
-A backtick-delimited string in a code span: `` `foo` ``
-
----
 
 <a id="images"></a>
 ### 图片
@@ -805,9 +665,9 @@ Markdown 的图片语法与链接类似，支持行内与引用两种方式。
 
 #### 行内图片
 
-行内图片语法：`![替代文本](URL "标题")`
+行内图片语法：`![图片说明](图片地址)`
 
-标题可选。
+标题可选(Optional title)
 
 代码：
 
@@ -825,28 +685,24 @@ Markdown 的图片语法与链接类似，支持行内与引用两种方式。
 
 ---
 
-说明：
-
-- 一个感叹号 !；
-- 后接方括号，放置图片的替代文本；
-- 再接圆括号，内含图片 URL/路径，及可选的标题（引号包裹）。
 
 #### 引用式图片
+在正文里写一个引用标签`![图片说明][img7]`
 
-引用式图片语法：`![替代文本][id]`
+然后在文件任意位置（习惯放文末）定义它的真实地址`[img7]: 图片地址`
 
 代码：
 
-    [img id]: https://s2.loli.net/2024/08/20/5fszgXeOxmL3Wdv.webp  "Optional title attribute"
+    [img id]: https://s2.loli.net/2024/08/20/5fszgXeOxmL3Wdv.webp  "Optional title"
     ![Alt text][img id]
 
 预览：
 
 ---
 
-[img id]: https://s2.loli.net/2024/08/20/5fszgXeOxmL3Wdv.webp "Optional title attribute"
-
 ![Alt text][img id]
+[img id]: https://s2.loli.net/2024/08/20/5fszgXeOxmL3Wdv.webp "Optional title"
+
 
 ---
 
