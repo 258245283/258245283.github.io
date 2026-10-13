@@ -8,8 +8,7 @@ export const sponsorConfig: SponsorConfig = {
 	description: "所有打赏将用于作者",
 
 	// 打赏用途说明
-	usage:
-		"讨口子饭吃，养活自己，养活孩子",
+	usage: "讨口子饭吃，养活自己，养活孩子",
 
 	// 是否显示打赏者列表
 	showSponsorsList: true,
@@ -25,13 +24,13 @@ export const sponsorConfig: SponsorConfig = {
 	// 需要开通打赏时，把自己的收款码放到 public/assets/images/sponsor/ 下，再照下面格式填写：
 	methods: [
 		{
-		name: "微信",
-	    icon: "fa7-brands:weixin",//图标库
-	    qrCode: "/assets/images/sponsor/weixin.png",  // 收款码图片路径
- 	    link: "",                                     // 或填在线收款页链接
-	    description: "使用 微信 扫码",
-	    enabled: true,
-		}
+			name: "微信",
+			icon: "fa7-brands:weixin", //图标库
+			qrCode: "/assets/images/sponsor/weixin.png", // 收款码图片路径
+			link: "", // 或填在线收款页链接
+			description: "使用 微信 扫码",
+			enabled: true,
+		},
 	],
 
 	// 打赏者列表（可选），模板自带的示例数据已清空

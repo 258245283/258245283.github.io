@@ -18,8 +18,7 @@ export const galleryConfig: GalleryConfig = {
 		{
 			id: "encrypted-test",
 			name: "加密相册示例",
-			description:
-				"这是一个加密相册的示例,密码123456",
+			description: "这是一个加密相册的示例,密码123456",
 			location: "示例地点",
 			date: "2026-02-01",
 			tags: ["加密相册", "示例"],

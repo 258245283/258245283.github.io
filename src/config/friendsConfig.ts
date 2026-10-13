@@ -20,8 +20,6 @@ export const friendsPageConfig: FriendsPageConfig = {
 	randomizeSort: false,
 };
 
-
-
 // 友链配置
 export const friendsConfig: FriendLink[] = [
 	{
@@ -35,9 +33,6 @@ export const friendsConfig: FriendLink[] = [
 		enabled: false, // 模板作者的友链，已关闭；填上自己的友链后可按需删除
 	},
 ];
-
-
-
 
 // 获取启用的友链并进行排序
 export const getEnabledFriends = (): FriendLink[] => {

@@ -67,8 +67,6 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 
 			// 书签导航
 			LinkPresets.Booknav,
-
-	
 		],
 	});
 
@@ -190,7 +188,7 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		icon: "material-symbols:bookmarks",
 		pageKey: "booknav",
 	},
-	
+
 	Sponsor: {
 		name: "打赏",
 		url: "/sponsor/",
