@@ -60,7 +60,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			LinkPresets.Dynamic,
 
 			// 项目
-			LinkPresets.Projects,
+			//LinkPresets.Projects,
 
 			// 相册
 			LinkPresets.Gallery,
@@ -68,17 +68,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			// 书签导航
 			LinkPresets.Booknav,
 
-			// 哔哩哔哩追番
-			LinkPresets.Bilibili,
-
-			// 番组计划
-			LinkPresets.Bangumi,
-
-			// VNDB
-			LinkPresets.VNDB,
-
-			// MyAnimeList
-			LinkPresets.MAL,
+	
 		],
 	});
 
@@ -97,7 +87,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 	});
 
 	// 自定义导航栏链接
-	links.push({
+	/*links.push({
 		name: "链接",
 		url: "#",
 		icon: "material-symbols:link",
@@ -116,7 +106,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 				icon: "material-symbols:docs",
 			},
 		],
-	});
+	}); */
 
 	// 文档链接
 	// links.push({
@@ -200,30 +190,7 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		icon: "material-symbols:bookmarks",
 		pageKey: "booknav",
 	},
-	Bilibili: {
-		name: "哔哩哔哩",
-		url: "/bilibili/",
-		icon: "fa7-brands:bilibili",
-		pageKey: "bilibili",
-	},
-	Bangumi: {
-		name: "番组计划",
-		url: "/bangumi/",
-		icon: "material-symbols:movie",
-		pageKey: "bangumi",
-	},
-	VNDB: {
-		name: "VNDB",
-		url: "/vndb/",
-		icon: "material-symbols:chrome-reader-mode-rounded",
-		pageKey: "vndb",
-	},
-	MAL: {
-		name: "AnimeList",
-		url: "/myanimelist/",
-		icon: "material-symbols:menu-book",
-		pageKey: "mal",
-	},
+	
 	Sponsor: {
 		name: "打赏",
 		url: "/sponsor/",

@@ -5,7 +5,7 @@ import type { FriendLink, FriendsPageConfig } from "../types/friendsConfig";
 // 友链页面配置
 export const friendsPageConfig: FriendsPageConfig = {
 	// 页面标题，如果留空则使用 i18n 中的翻译
-	title: "",
+	title: "我的朋友",
 
 	// 页面描述文本，如果留空则使用 i18n 中的翻译
 	description: "",
@@ -20,6 +20,8 @@ export const friendsPageConfig: FriendsPageConfig = {
 	randomizeSort: false,
 };
 
+
+
 // 友链配置
 export const friendsConfig: FriendLink[] = [
 	{
@@ -32,25 +34,10 @@ export const friendsConfig: FriendLink[] = [
 		weight: 10, // 权重，数字越大排序越靠前
 		enabled: false, // 模板作者的友链，已关闭；填上自己的友链后可按需删除
 	},
-	{
-		title: "Firefly Docs",
-		imgurl: "https://docs-firefly.cuteleaf.cn/logo.png",
-		desc: "Firefly主题模板文档",
-		siteurl: "https://docs-firefly.cuteleaf.cn",
-		tags: ["Docs"],
-		weight: 9,
-		enabled: true,
-	},
-	{
-		title: "Astro",
-		imgurl: "https://avatars.githubusercontent.com/u/44914786?v=4&s=640",
-		desc: "The web framework for content-driven websites. ⭐️ Star to support our work!",
-		siteurl: "https://github.com/withastro/astro",
-		tags: ["Framework"],
-		weight: 8,
-		enabled: true,
-	},
 ];
+
+
+
 
 // 获取启用的友链并进行排序
 export const getEnabledFriends = (): FriendLink[] => {
