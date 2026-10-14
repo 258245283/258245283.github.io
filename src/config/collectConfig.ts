@@ -88,11 +88,11 @@ export const collectConfig: CollectGroup[] = [
 				weight: 10,
 			},
 			{
-				title:"免费图床",
-				url:"https://img.remit.ee/free-image-hosting",
-				desc:"图片转Markdown连接",
-				weight:9,
-			}
+				title: "免费图床",
+				url: "https://img.remit.ee/free-image-hosting",
+				desc: "图片转Markdown连接",
+				weight: 9,
+			},
 		],
 	},
 	{

@@ -46,10 +46,10 @@ export type SiteConfig = {
 	// 页面整体宽度（单位：rem）
 	pageWidth?: number;
 
-	// 卡片样式配置
-	card: {
+	// 卡片样式配置（可选，未配置时使用默认样式）
+	card?: {
 		// 是否开启卡片边框和阴影立体效果
-		border: boolean;
+		border?: boolean;
 		// 是否让卡片风格跟随主题色相
 		followTheme?: boolean;
 	};
