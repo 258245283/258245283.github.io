@@ -39,6 +39,5 @@ export const profileConfig: ProfileConfig = {
 			url: "https://258245283.github.io/rss.xml",
 			showName: false,
 		},
-	
 	],
 };
