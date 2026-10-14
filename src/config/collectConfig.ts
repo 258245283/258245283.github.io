@@ -72,6 +72,12 @@ export const collectConfig: CollectGroup[] = [
 				desc: "海量开源图标集合搜索",
 				weight: 10,
 			},
+			{
+				title: "Material Symbols",
+				url:"https://yesicon.app/zh-Hans/material-symbols",
+				desc: "谷歌官方图标库",
+				weight: 9,
+			}
 		],
 	},
 	{

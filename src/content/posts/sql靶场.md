@@ -1,5 +1,6 @@
 ---
 title: sql注入
+pinned: true
 published: 2026-10-13
 description: 本篇介绍sqli-labs靶场的通关教程
 tags: [sql]

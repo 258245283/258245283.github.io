@@ -185,14 +185,14 @@ export const LinkPresets: Record<string, NavBarLink> = {
 	Collect: {
 		name: "收藏",
 		url: "/collect/",
-		icon: "material-symbols:bookmarks",
+		icon: "material-symbols:star",
 		pageKey: "collect",
 	},
 
 	Sponsor: {
 		name: "打赏",
 		url: "/sponsor/",
-		icon: "material-symbols:favorite",
+		icon: "material-symbols:money-bag",
 		pageKey: "sponsor",
 	},
 	About: {
