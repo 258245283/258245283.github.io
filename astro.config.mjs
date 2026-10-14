@@ -251,7 +251,7 @@ export default defineConfig({
 				if (pathname === "/guestbook/" && !siteConfig.pages.guestbook) {
 					return false;
 				}
-				if (pathname === "/booknav/" && !siteConfig.pages.booknav) {
+				if (pathname === "/collect/" && !siteConfig.pages.collect) {
 					return false;
 				}
 				if (pathname === "/bilibili/" && !siteConfig.pages.bilibili) {

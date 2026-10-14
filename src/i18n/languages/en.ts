@@ -85,11 +85,11 @@ export const en: Translation = {
 		"Here are my friends, welcome to visit and communicate with each other",
 	[Key.searchFriends]: "Search friends...",
 	[Key.friendsEmpty]: "No friends yet.",
-	[Key.booknav]: "Bookmark Nav",
-	[Key.booknavDescription]:
+	[Key.collect]: "Bookmark Nav",
+	[Key.collectDescription]:
 		"A curated collection of useful sites, organized by category.",
-	[Key.searchBooknav]: "Search bookmarks...",
-	[Key.booknavEmpty]: "No bookmarks yet.",
+	[Key.searchCollect]: "Search bookmarks...",
+	[Key.collectEmpty]: "No bookmarks yet.",
 
 	// Project showcase
 	[Key.projects]: "Projects",

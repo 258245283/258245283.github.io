@@ -5,11 +5,11 @@ export type {
 	FullscreenWallpaperLayout,
 } from "./backgroundWallpaper";
 export type {
-	BooknavFaviconConfig,
-	BooknavGroup,
-	BooknavItem,
-	BooknavPageConfig,
-} from "./booknavConfig";
+	CollectFaviconConfig,
+	CollectGroup,
+	CollectItem,
+	CollectPageConfig,
+} from "./collectConfig";
 export type { CommentConfig } from "./commentConfig";
 export type { CoverImageConfig } from "./coverImageConfig";
 export type { DisplaySettingsConfig } from "./displaySettingsConfig";

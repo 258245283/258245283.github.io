@@ -55,7 +55,7 @@ export type ResolvedLinkIcon =
 
 /**
  * 解析 link 条目的图标：astro-icon 名 / 图片 URL / 公共路径 → 首字母兜底。
- * 判定规则与书签导航的 resolveBooknavIcon 一致。
+ * 判定规则与收藏页的 resolveCollectIcon 一致。
  */
 export function resolveLinkIcon(icon: string, label: string): ResolvedLinkIcon {
 	const trimmed = icon?.trim();

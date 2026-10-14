@@ -26,7 +26,7 @@ const NAVBAR_DEFAULT_NAMES: Record<string, I18nKey> = {
 	动态: I18nKey.dynamic,
 	项目: I18nKey.projects,
 	相册: I18nKey.gallery,
-	书签导航: I18nKey.booknav,
+	收藏: I18nKey.collect,
 	哔哩哔哩: I18nKey.bilibili,
 	番组计划: I18nKey.bangumi,
 	打赏: I18nKey.sponsor,

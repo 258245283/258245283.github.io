@@ -52,10 +52,10 @@ const KEY_PAGES: KeyPage[] = [
 		pageKey: "gallery",
 	},
 	{
-		labelKey: I18nKey.booknav,
-		path: "/booknav/",
-		descKey: I18nKey.booknavDescription,
-		pageKey: "booknav",
+		labelKey: I18nKey.collect,
+		path: "/collect/",
+		descKey: I18nKey.collectDescription,
+		pageKey: "collect",
 	},
 	{
 		labelKey: I18nKey.bilibili,

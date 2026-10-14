@@ -1,12 +1,12 @@
-import { booknavConfig } from "../config/booknavConfig";
+import { collectConfig } from "../config/collectConfig";
 import type {
-	BooknavFaviconConfig,
-	BooknavGroup,
-	BooknavItem,
-} from "../types/booknavConfig";
+	CollectFaviconConfig,
+	CollectGroup,
+	CollectItem,
+} from "../types/collectConfig";
 
-// 书签图标解析结果
-export type ResolvedBooknavIcon =
+// 收藏图标解析结果
+export type ResolvedCollectIcon =
 	| { kind: "icon"; value: string } // astro-icon 图标名
 	| { kind: "image"; value: string } // 图片地址
 	| { kind: "letter"; value: string }; // 首字母兜底
@@ -14,8 +14,8 @@ export type ResolvedBooknavIcon =
 // astro-icon 图标名格式：namespace:name
 const ICON_NAME_PATTERN = /^[\w-]+:[\w-]+$/;
 
-// 从书签地址中提取域名，地址非法时返回空字符串
-export function getBooknavDomain(url: string): string {
+// 从收藏地址中提取域名，地址非法时返回空字符串
+export function getCollectDomain(url: string): string {
 	try {
 		return new URL(url).hostname;
 	} catch {
@@ -30,15 +30,15 @@ export function buildFaviconUrl(api: string, domain: string): string {
 }
 
 // 取标题首字符作为兜底图标
-export function getBooknavLetter(title: string): string {
+export function getCollectLetter(title: string): string {
 	return (title || "?").trim().charAt(0).toUpperCase() || "?";
 }
 
-// 解析书签图标：手填优先，其次 favicon 自动获取，最后首字母兜底
-export function resolveBooknavIcon(
-	item: BooknavItem,
-	favicon: BooknavFaviconConfig,
-): ResolvedBooknavIcon {
+// 解析收藏图标：手填优先，其次 favicon 自动获取，最后首字母兜底
+export function resolveCollectIcon(
+	item: CollectItem,
+	favicon: CollectFaviconConfig,
+): ResolvedCollectIcon {
 	const icon = item.icon?.trim();
 
 	if (icon) {
@@ -56,18 +56,18 @@ export function resolveBooknavIcon(
 
 	// 未填写图标时，尝试自动获取 favicon
 	if (favicon.enabled) {
-		const faviconUrl = buildFaviconUrl(favicon.api, getBooknavDomain(item.url));
+		const faviconUrl = buildFaviconUrl(favicon.api, getCollectDomain(item.url));
 		if (faviconUrl) {
 			return { kind: "image", value: faviconUrl };
 		}
 	}
 
-	return { kind: "letter", value: getBooknavLetter(item.title) };
+	return { kind: "letter", value: getCollectLetter(item.title) };
 }
 
-// 获取启用的书签分组，分组与组内条目均按权重排序
-export function getEnabledBooknavGroups(): BooknavGroup[] {
-	return booknavConfig
+// 获取启用的收藏分组，分组与组内条目均按权重排序
+export function getEnabledCollectGroups(): CollectGroup[] {
+	return collectConfig
 		.filter((group) => group.enabled !== false)
 		.map((group) => ({
 			...group,

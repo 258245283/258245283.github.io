@@ -65,8 +65,8 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			// 相册
 			LinkPresets.Gallery,
 
-			// 书签导航
-			LinkPresets.Booknav,
+			// 收藏页
+			LinkPresets.Collect,
 		],
 	});
 
@@ -182,11 +182,11 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		icon: "material-symbols:photo-library",
 		pageKey: "gallery",
 	},
-	Booknav: {
-		name: "书签导航",
-		url: "/booknav/",
+	Collect: {
+		name: "收藏",
+		url: "/collect/",
 		icon: "material-symbols:bookmarks",
-		pageKey: "booknav",
+		pageKey: "collect",
 	},
 
 	Sponsor: {

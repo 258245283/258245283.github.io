@@ -1,16 +1,16 @@
-import type { BooknavGroup, BooknavPageConfig } from "../types/booknavConfig";
+import type { CollectGroup, CollectPageConfig } from "../types/collectConfig";
 
-// 书签导航页面配置
-export const booknavPageConfig: BooknavPageConfig = {
+// 收藏页页面配置
+export const collectPageConfig: CollectPageConfig = {
 	// 页面标题，如果留空则使用 i18n 中的翻译
-	title: "",
+	title: "收藏",
 
 	// 页面描述文本，如果留空则使用 i18n 中的翻译
-	description: "",
+	description: "收藏好用的网站",
 
 	// favicon 自动获取配置
 	favicon: {
-		// 书签未填写 icon 时，是否自动获取目标站点的 favicon 图标
+		// 收藏未填写 icon 时，是否自动获取目标站点的 favicon 图标
 		enabled: true,
 
 		// favicon 接口地址，{domain} 为占位符，会被替换成目标站点域名
@@ -21,9 +21,9 @@ export const booknavPageConfig: BooknavPageConfig = {
 	},
 };
 
-// 书签导航配置
-// 每个数组项是一个分类组，分类组内的 items 是该分类下的书签
-export const booknavConfig: BooknavGroup[] = [
+// 收藏页配置
+// 每个数组项是一个分类组，分类组内的 items 是该分类下的收藏
+export const collectConfig: CollectGroup[] = [
 	{
 		id: "dev",
 		name: "开发",
@@ -63,7 +63,7 @@ export const booknavConfig: BooknavGroup[] = [
 		id: "design",
 		name: "设计",
 		icon: "material-symbols:palette-outline-rounded",
-		desc: "配色、图标与灵感来源",
+		desc: "图标来源",
 		weight: 90,
 		items: [
 			{
@@ -78,7 +78,7 @@ export const booknavConfig: BooknavGroup[] = [
 		id: "tools",
 		name: "工具",
 		icon: "material-symbols:build-outline-rounded",
-		desc: "顺手的在线小工具",
+		desc: "在线小工具",
 		weight: 80,
 		items: [
 			{
@@ -87,6 +87,12 @@ export const booknavConfig: BooknavGroup[] = [
 				desc: "在线压缩 PNG / JPEG 图片",
 				weight: 10,
 			},
+			{
+				title:"免费图床",
+				url:"https://img.remit.ee/free-image-hosting",
+				desc:"图片转Markdown连接",
+				weight:9,
+			}
 		],
 	},
 	{

@@ -1,43 +1,43 @@
 ---
 import { Icon } from "astro-icon/components";
-import { booknavPageConfig, siteConfig } from "@/config";
+import { collectPageConfig, siteConfig } from "@/config";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import "@/styles/pages/common.css";
 import {
-	getBooknavDomain,
-	getBooknavLetter,
-	getEnabledBooknavGroups,
-	resolveBooknavIcon,
-} from "@/utils/booknav-utils";
-import "@/styles/pages/booknav.css";
+	getCollectDomain,
+	getCollectLetter,
+	getEnabledCollectGroups,
+	resolveCollectIcon,
+} from "@/utils/collect-utils";
+import "@/styles/pages/collect.css";
 
 // 检查页面是否启用
-if (!siteConfig.pages.booknav) {
+if (!siteConfig.pages.collect) {
 	return Astro.redirect("/404/");
 }
 
 // 使用配置文件中的书签数据，按权重排序
-const groups = getEnabledBooknavGroups();
+const groups = getEnabledCollectGroups();
 
 // 预先解析每个书签的图标与域名，避免在模板里重复计算
 const resolvedGroups = groups.map((group) => ({
 	...group,
 	items: group.items.map((item) => ({
 		...item,
-		domain: getBooknavDomain(item.url),
-		letter: getBooknavLetter(item.title),
-		resolvedIcon: resolveBooknavIcon(item, booknavPageConfig.favicon),
+		domain: getCollectDomain(item.url),
+		letter: getCollectLetter(item.title),
+		resolvedIcon: resolveCollectIcon(item, collectPageConfig.favicon),
 	})),
 }));
 
 const totalCount = resolvedGroups.reduce((sum, g) => sum + g.items.length, 0);
 
 // 页面标题和描述
-const title = booknavPageConfig.title || i18n(I18nKey.booknav);
+const title = collectPageConfig.title || i18n(I18nKey.collect);
 const description =
-	booknavPageConfig.description || i18n(I18nKey.booknavDescription);
+	collectPageConfig.description || i18n(I18nKey.collectDescription);
 ---
 
 <MainGridLayout title={title} description={description}>
@@ -49,7 +49,7 @@ const description =
       <div class="mb-4">
         <div class="page-heading">
           <div class="page-icon" aria-hidden="true">
-            <Icon name="material-symbols:bookmarks" />
+            <Icon name="material-symbols:star" />
           </div>
           <div>
             <h2>{title}</h2>
@@ -60,7 +60,7 @@ const description =
 
       {
         totalCount > 0 ? (
-          <booknav-list>
+          <collect-list>
             {/* 搜索框 */}
             <div class="relative mb-3">
               <Icon
@@ -70,7 +70,7 @@ const description =
               <input
                 type="text"
                 data-search
-                placeholder={i18n(I18nKey.searchBooknav)}
+                placeholder={i18n(I18nKey.searchCollect)}
                 class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-(--line-divider) bg-transparent text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all duration-200 text-sm"
               />
             </div>
@@ -92,15 +92,15 @@ const description =
             </div>
 
             {/* 分组区块 */}
-            <div class="booknav-groups">
+            <div class="collect-groups">
               {resolvedGroups.map((group) => (
                 <section
                   id={group.id}
-                  class="booknav-group mb-8 last:mb-2"
+                  class="collect-group mb-8 last:mb-2"
                   data-group-id={group.id}
                 >
                   {/* 分组标题 */}
-                  <div class="booknav-group-heading flex items-center gap-2 mb-3 pb-2 border-b border-(--line-divider)">
+                  <div class="collect-group-heading flex items-center gap-2 mb-3 pb-2 border-b border-(--line-divider)">
                     {group.icon && (
                       <Icon
                         name={group.icon}
@@ -120,7 +120,7 @@ const description =
                   </div>
 
                   {/* 书签卡片网格 */}
-                  <div class="booknav-grid">
+                  <div class="collect-grid">
                     {group.items.map((item) => (
                       <a
                         href={item.url}
@@ -130,14 +130,14 @@ const description =
                         data-title={item.title.toLowerCase()}
                         data-desc={(item.desc || "").toLowerCase()}
                         data-domain={item.domain.toLowerCase()}
-                        class="booknav-card group flex items-center gap-3 p-3 rounded-xl border border-(--line-divider) hover:border-(--primary) hover:bg-(--card-bg) transition-all duration-300 hover:shadow-lg relative overflow-hidden"
+                        class="collect-card group flex items-center gap-3 p-3 rounded-xl border border-(--line-divider) hover:border-(--primary) hover:bg-(--card-bg) transition-all duration-300 hover:shadow-lg relative overflow-hidden"
                       >
                         {/* 背景装饰 - 仅悬停显示 */}
                         <div class="absolute inset-0 bg-(--primary) opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none" />
 
                         {/* 图标 */}
                         <div
-                          class="booknav-icon relative w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/5 flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
+                          class="collect-icon relative w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-black/5 dark:border-white/5 flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
                           data-letter={item.letter}
                         >
                           {item.resolvedIcon.kind === "icon" && (
@@ -157,7 +157,7 @@ const description =
                             />
                           )}
                           {item.resolvedIcon.kind === "letter" && (
-                            <span class="booknav-letter">{item.letter}</span>
+                            <span class="collect-letter">{item.letter}</span>
                           )}
                         </div>
 
@@ -184,15 +184,15 @@ const description =
             </div>
 
             {/* 搜索无结果提示 */}
-            <div class="booknav-empty hidden flex-col items-center justify-center py-12 text-neutral-400 dark:text-neutral-500">
+            <div class="collect-empty hidden flex-col items-center justify-center py-12 text-neutral-400 dark:text-neutral-500">
               <Icon name="material-symbols:search-off-rounded" class="text-4xl mb-3" />
               <div class="text-sm">{i18n(I18nKey.searchNoResults)}</div>
             </div>
-          </booknav-list>
+          </collect-list>
         ) : (
           <div class="flex flex-col items-center justify-center py-16 text-neutral-400 dark:text-neutral-500">
-            <Icon name="material-symbols:bookmarks" class="text-6xl mb-4 opacity-50" />
-            <p class="text-lg">{i18n(I18nKey.booknavEmpty)}</p>
+            <Icon name="material-symbols:star" class="text-6xl mb-4 opacity-50" />
+            <p class="text-lg">{i18n(I18nKey.collectEmpty)}</p>
           </div>
         )
       }
@@ -200,8 +200,8 @@ const description =
   </div>
 
   <script slot="head" is:inline>
-    if (!customElements.get("booknav-list")) {
-      class BooknavList extends HTMLElement {
+    if (!customElements.get("collect-list")) {
+      class CollectList extends HTMLElement {
         constructor() {
           super();
           this.handleClick = this.handleClick.bind(this);
@@ -236,11 +236,11 @@ const description =
         handleIconError(e) {
           const img = e.target;
           if (!img || img.tagName !== "IMG") return;
-          const wrapper = img.closest(".booknav-icon");
+          const wrapper = img.closest(".collect-icon");
           if (!wrapper || wrapper.dataset.fallback === "done") return;
           wrapper.dataset.fallback = "done";
           const letter = wrapper.dataset.letter || "?";
-          wrapper.innerHTML = `<span class="booknav-letter">${letter}</span>`;
+          wrapper.innerHTML = `<span class="collect-letter">${letter}</span>`;
         }
 
         // 点击分类胶囊平滑滚动到对应分组
@@ -265,7 +265,7 @@ const description =
           let hasVisible = false;
 
           sections.forEach((section) => {
-            const cards = section.querySelectorAll(".booknav-card");
+            const cards = section.querySelectorAll(".collect-card");
             let groupVisible = 0;
 
             cards.forEach((card) => {
@@ -289,14 +289,14 @@ const description =
             if (groupVisible > 0) hasVisible = true;
           });
 
-          const emptyEl = this.querySelector(".booknav-empty");
+          const emptyEl = this.querySelector(".collect-empty");
           if (emptyEl) {
             emptyEl.classList.toggle("hidden", hasVisible);
             emptyEl.classList.toggle("flex", !hasVisible);
           }
         }
       }
-      customElements.define("booknav-list", BooknavList);
+      customElements.define("collect-list", CollectList);
     }
   </script>
 

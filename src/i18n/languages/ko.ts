@@ -85,10 +85,10 @@ export const ko: Translation = {
 		"여기는 제 친구들입니다. 방문하여 서로 교류해 보세요",
 	[Key.searchFriends]: "친구 검색...",
 	[Key.friendsEmpty]: "아직 친구가 없습니다.",
-	[Key.booknav]: "북마크 모음",
-	[Key.booknavDescription]: "유용한 사이트를 카테고리별로 모았습니다.",
-	[Key.searchBooknav]: "북마크 검색...",
-	[Key.booknavEmpty]: "북마크가 없습니다.",
+	[Key.collect]: "북마크 모음",
+	[Key.collectDescription]: "유용한 사이트를 카테고리별로 모았습니다.",
+	[Key.searchCollect]: "북마크 검색...",
+	[Key.collectEmpty]: "북마크가 없습니다.",
 
 	// 프로젝트 쇼케이스
 	[Key.projects]: "프로젝트",

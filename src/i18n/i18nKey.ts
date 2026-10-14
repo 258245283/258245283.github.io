@@ -116,11 +116,11 @@ enum I18nKey {
 	guestbookDescription = "guestbookDescription",
 	bangumi = "bangumi",
 
-	// 书签导航
-	booknav = "booknav",
-	booknavDescription = "booknavDescription",
-	searchBooknav = "searchBooknav",
-	booknavEmpty = "booknavEmpty",
+	// 收藏页
+	collect = "collect",
+	collectDescription = "collectDescription",
+	searchCollect = "searchCollect",
+	collectEmpty = "collectEmpty",
 
 	// 项目展示页
 	projects = "projects",

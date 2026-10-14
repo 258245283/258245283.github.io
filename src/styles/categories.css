@@ -58,7 +58,7 @@
 
 /* 矩形样式（siteConfig.categoryStyle = "rectangle"）- 只收小圆角，配色沿用上方胶囊样式 */
 /* 仅作用于分类导航栏 */
-/* 友链 / 相册 / 书签导航页的筛选按钮保持胶囊 */
+/* 友链 / 相册 / 收藏页的筛选按钮保持胶囊 */
 html[data-category-style="rectangle"] .category-bar .category-pill {
   border-radius: 0.75rem;
 }

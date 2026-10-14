@@ -85,11 +85,11 @@ export const ru: Translation = {
 		"Вот мои друзья, добро пожаловать посетить и общаться друг с другом",
 	[Key.searchFriends]: "Поиск друзей...",
 	[Key.friendsEmpty]: "Друзей пока нет.",
-	[Key.booknav]: "Каталог закладок",
-	[Key.booknavDescription]:
+	[Key.collect]: "Каталог закладок",
+	[Key.collectDescription]:
 		"Подборка полезных сайтов, сгруппированных по категориям.",
-	[Key.searchBooknav]: "Поиск закладок...",
-	[Key.booknavEmpty]: "Закладок пока нет.",
+	[Key.searchCollect]: "Поиск закладок...",
+	[Key.collectEmpty]: "Закладок пока нет.",
 
 	// Витрина проектов
 	[Key.projects]: "Проекты",
