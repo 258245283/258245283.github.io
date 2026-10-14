@@ -192,7 +192,6 @@ src/
 │   ├── licenseConfig.ts          # 许可证配置
 │   ├── musicConfig.ts            # 音乐播放器配置
 │   ├── navBarConfig.ts           # 导航栏配置
-│   ├── pioConfig.ts              # 看板娘配置
 │   ├── mermaidConfig.ts          # Mermaid 图表配置
 │   ├── plantumlConfig.ts         # PlantUML 图表配置
 │   ├── profileConfig.ts          # 用户资料配置

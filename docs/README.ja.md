@@ -193,7 +193,6 @@ src/
 │   ├── licenseConfig.ts          # ライセンス設定
 │   ├── musicConfig.ts            # 音楽プレーヤー設定
 │   ├── navBarConfig.ts           # ナビゲーションバー設定
-│   ├── pioConfig.ts              # マスコット設定
 │   ├── mermaidConfig.ts          # Mermaid 図表設定
 │   ├── plantumlConfig.ts         # PlantUML 図表設定
 │   ├── profileConfig.ts          # ユーザープロフィール設定
