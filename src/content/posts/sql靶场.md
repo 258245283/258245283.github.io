@@ -131,6 +131,7 @@ category: 笔记
 
 ![](<https://img.remit.ee/i/TivIRB8uGaL0>)
 ![](<https://img.remit.ee/i/Zw4kCq9rNGT6>)
+
 可以看到数据库版本等信息
 
 **2.获取全部数据库**
