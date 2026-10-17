@@ -42,7 +42,7 @@ const pages = resolvePageToggles({
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "Chen的博客",
+	title: "琳筱雨",
 
 	// 站点副标题
 	subtitle: "",
@@ -77,17 +77,30 @@ export const siteConfig: SiteConfig = {
 	// 数值越大可以让页面内容区域更宽
 	// 在使用单侧栏边栏时，建议调低一些宽度以获得更好的视觉效果。
 	pageWidth: 100,
-
+    
+	//网页标题栏图标
 	// Favicon 配置
 	// 如果启用了OpenGraph图片功能，数组中需要包含png格式的favicon图标
+	// 注：主题会把「数组里第一个 png」用作 apple-touch-icon（iPhone 加到主屏幕），
+	// 所以把 180x180 放在第一位，保证主屏幕图标清晰。
 	favicon: [
 		{
-			// 图标文件路径
-			src: "/favicon/firefly-32.png",
-			// 可选，指定主题 'light' | 'dark'
-			// theme: "light",
-			// 可选，图标大小
-			// sizes: "32x32",
+			// apple-touch-icon：iPhone 添加到主屏幕
+			src: "/favicon/raincloud-180.png",
+			sizes: "180x180",
+		},
+		{
+			// 浏览器标签页图标
+			src: "/favicon/raincloud-32.png",
+			sizes: "32x32",
+		},
+		{
+			src: "/favicon/raincloud-128.png",
+			sizes: "128x128",
+		},
+		{
+			src: "/favicon/raincloud-192.png",
+			sizes: "192x192",
 		},
 	],
 
@@ -106,10 +119,10 @@ export const siteConfig: SiteConfig = {
 			type: "image",
 			value: "assets/images/logo/firefly-light.png",
 			valueDark: "assets/images/logo/firefly-dark.png",
-			alt: "🍀",
+			alt: "🙂",
 		},
 		// 导航栏标题
-		title: "Firefly Blog",
+		title: "琳筱雨",
 		// 全宽导航栏，导航栏是否占满屏幕宽度
 		widthFull: false,
 		// 导航菜单对齐方式，left：左对齐，center：居中
